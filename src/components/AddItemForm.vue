@@ -26,7 +26,7 @@
             </div>
         </div>
         <transition name="fade">
-            <div class="row" v-if="isHighlighted">
+            <div class="row" v-if="errorMessage.length > 0">
                 <div class="col centered">
                     <b-alert show variant="danger" v-text="errorMessage"></b-alert>
                 </div>
@@ -40,6 +40,16 @@
 
     export default {
         name: "AddItemForm",
+
+        props: {
+            inputAddStatus: {
+                type: Object,
+                default: {
+                    status: true,
+                    message: ''
+                }
+            }
+        },
 
         data() {
             return {
@@ -81,12 +91,20 @@
                     fullName: this.newFirstName + " " + this.newLastName,
                     phoneNumber: this.newPhoneNumber
                 };
-                this.newFirstName = "";
-                this.newLastName = "";
-                this.newPhoneNumber = "";
-                this.isHighlighted = false;
 
+                this.isHighlighted = false;
                 this.$emit("add-item", this.newContact);
+            }
+        },
+
+        watch: {
+            inputAddStatus: function (newValue) {
+                if (newValue.status) {
+                    this.newFirstName = "";
+                    this.newLastName = "";
+                    this.newPhoneNumber = "";
+                }
+                this.errorMessage = newValue.message;
             }
         }
     }

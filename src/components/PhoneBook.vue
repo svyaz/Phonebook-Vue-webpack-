@@ -1,6 +1,8 @@
 <template>
     <div>
-        <AddItemForm v-model="newContact" @add-item="addItem"></AddItemForm>
+        <AddItemForm v-model="newContact"
+                     :inputAddStatus="addStatus"
+                     @add-item="addItem"></AddItemForm>
         <SearchForm @search-items="setSearchString"></SearchForm>
         <div class="row list-header">
             <div class="col-1"><label><input type="checkbox" v-model="selectAll"></label></div>
@@ -27,6 +29,8 @@
 </template>
 
 <script>
+    const ERR_MSG_ALREADY_EXISTS = 'Контакт с таким номером телефона уже есть.';
+
     import PhoneBookItem from './PhoneBookItem.vue';
     import AddItemForm from "./AddItemForm.vue";
     import SearchForm from "./SearchForm.vue";
@@ -37,7 +41,6 @@
         props: {
             item: {
                 type: Object,
-                required: true
             }
         },
 
@@ -51,17 +54,43 @@
 
                 /* для хранения списка контактов */
                 list: [
-                    {id: 1000, firstName: "John", lastName: "Lennon", fullName: "John Lennon", phoneNumber: "111-111-111"},
+                    {
+                        id: 1000,
+                        firstName: "John",
+                        lastName: "Lennon",
+                        fullName: "John Lennon",
+                        phoneNumber: "111-111-111"
+                    },
                     {id: 2000, firstName: "Ned", lastName: "Stark", fullName: "Ned Stark", phoneNumber: "222-222-222"},
-                    {id: 3000, firstName: "Michael", lastName: "Boyarskiy", fullName: "Michael Boyarskiy", phoneNumber: "333-333-333"},
-                    {id: 4000, firstName: "Max", lastName: "Kuzhelev", fullName: "Max Kuzhelev", phoneNumber: "444-444-444"}
+                    {
+                        id: 3000,
+                        firstName: "Michael",
+                        lastName: "Boyarskiy",
+                        fullName: "Michael Boyarskiy",
+                        phoneNumber: "333-333-333"
+                    },
+                    {
+                        id: 4000,
+                        firstName: "Max",
+                        lastName: "Kuzhelev",
+                        fullName: "Max Kuzhelev",
+                        phoneNumber: "444-444-444"
+                    }
                 ],
 
                 /* для хранения контактов, отмеченных чекбоксами */
                 selectedList: [],
 
                 /* для поиска */
-                searchString: ""
+                searchString: '',
+
+                /* Для передачи сообщения о статусе добавления нового контакта.
+                * status: [true|false] - контакт добавлен или нет.
+                * message: строка. Если добавлен - id нового контакта. Если нет - текст ошибки. */
+                addStatus: {
+                    status: true,
+                    message: ''
+                }
             };
         },
 
@@ -84,17 +113,16 @@
                 });
 
                 if (isFound) {
-                    this.$bvModal.msgBoxOk('Контакт с таким номером телефона уже есть!', {
-                        size: 'md',
-                        buttonSize: 'sm',
-                        okVariant: 'primary',
-                        hideHeader: true,
-                        hideHeaderClose: true,
-                        footerClass: 'p-2',
-                        centered: false
-                    });
+                    this.addStatus = {
+                        status: false,
+                        message: ERR_MSG_ALREADY_EXISTS
+                    };
                 } else {
                     this.list.push(item);
+                    this.addStatus = {
+                        status: true,
+                        message: item.id
+                    };
                 }
             },
             removeItem(item) {
