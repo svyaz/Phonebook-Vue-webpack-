@@ -15,7 +15,20 @@
 <script>
     export default {
         name: "PhoneBookItem",
-        props: ["item", "index", "selectAll"],
+        props: {
+            item: {
+                type: Object,
+                required: true
+            },
+            index: {
+                type: Number,
+                required: true
+            },
+            selectAll: {
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
             return {
                 selected: false

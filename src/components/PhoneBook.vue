@@ -34,7 +34,12 @@
     export default {
         name: "PhoneBook",
         components: {AddItemForm, SearchForm, PhoneBookItem},
-        props: ["item"],
+        props: {
+            item: {
+                type: Object,
+                required: true
+            }
+        },
 
         data() {
             return {
