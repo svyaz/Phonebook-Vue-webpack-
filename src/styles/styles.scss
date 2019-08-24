@@ -28,11 +28,6 @@ body {
   padding-top: 1em;
 }
 
-.row div {
-  padding-right: $padding-1;
-  padding-left: $padding-1;
-}
-
 .list-header {
   text-align: left;
   background-color: $blue;
@@ -46,25 +41,32 @@ body {
   @include list-row;
 }
 
-.row label,
-.row input,
-.row button {
-  width: 100%;
-}
+.row {
+  div {
+    padding-right: $padding-1;
+    padding-left: $padding-1;
+  }
 
-.row input,
-.row button {
-  border: solid 1px $grey1;
-  border-radius: 3px;
-}
+  label,
+  input,
+  button {
+    width: 100%;
+  }
 
-.row button {
-  background: linear-gradient(0deg, $grey2, $grey3);
-}
+  input,
+  button {
+    border: solid 1px $grey1;
+    border-radius: 3px;
+  }
 
-.row input {
-  padding-left: $paddingInput;
-  padding-right: $paddingInput;
+  button {
+    background: linear-gradient(0deg, $grey2, $grey3);
+  }
+
+  input {
+    padding-left: $paddingInput;
+    padding-right: $paddingInput;
+  }
 }
 
 .centered {
