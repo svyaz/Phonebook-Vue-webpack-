@@ -1,3 +1,4 @@
+require("@babel/polyfill");
 const path = require('path');
 const webpack = require('webpack');
 
@@ -18,7 +19,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/main.js',
+    entry: ['@babel/polyfill', './src/main.js'],
 
     output: {
         filename: 'js/[name].[chunkhash].js',
