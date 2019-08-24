@@ -3,7 +3,7 @@
         <div class="col-1"><label><input type="checkbox"
                                          :value="item.id"
                                          v-model="selected"></label></div>
-        <div class="col-1" v-text="index+1"></div>
+        <div class="col-1" v-text="index + 1"></div>
         <div class="col-5" v-text="item.fullName"></div>
         <div class="col-4" v-text="item.phoneNumber"></div>
         <div class="col-1">
