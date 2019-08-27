@@ -9,7 +9,7 @@ Phonebook with Vue.
 - sass
 - css minification
 
-To bunble the project:
+To bundle the project:
 
 ```
 npm run build
