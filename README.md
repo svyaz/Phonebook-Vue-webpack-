@@ -1,16 +1,26 @@
-# Phonebook Vue 2
+# PhoneBook-Vue-Webpack
 
-Phonebook with Vue.
+Простая телефонная книга.
+
+### Задание:
+
+Необходимо проект с телефонной книгой "PhoneBook-Vue" настроить с помощью Webpack с нуля. 
+
+Настроить:
 
 - webpack
 - babel
 - vue components
 - bootstrap-vue
 - sass
-- css minification
+- css minification 
 
-To bundle the project:
+### Сборка и запуск сервера
+```
+npm run start
+```
 
+### Сборка проекта для production
 ```
 npm run build
 ```
